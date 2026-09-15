@@ -7,6 +7,7 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
 import DefaultLayout from '@/layout/DefaultLayout.vue'
+import Main from '@/pages/Main.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +15,13 @@ const router = createRouter({
     {
       path: '/',
       component: DefaultLayout,
-      children: [],
+      children: [
+        {
+          path: '',
+          name: 'Main',
+          component: Main,
+        }
+      ],
     },
   ],
 })
