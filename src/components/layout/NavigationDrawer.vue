@@ -1,18 +1,33 @@
 <template>
-     <v-navigation-drawer
-        v-model="drawer"
-        :location="$vuetify.display.mobile ? 'bottom' : undefined"
-        temporary
-      >
-        <v-list
-          :items="items"
-        ></v-list>
-      </v-navigation-drawer>
-
+  <v-navigation-drawer
+    v-model="drawer"
+    :location="$vuetify.display.mobile ? 'bottom' : undefined"
+    temporary
+  >
+    <v-list
+      v-model:selected="group"
+      :items="items"
+    />
+  </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
-  import { ref, watch } from 'vue'
+  import { computed, ref, watch } from 'vue'
+
+  const props = defineProps<{
+    modelValue: boolean
+  }>()
+
+  const emit = defineEmits<{
+    (event: 'update:modelValue', value: boolean): void
+  }>()
+
+  const drawer = computed({
+    get: () => props.modelValue,
+    set: (value: boolean) => emit('update:modelValue', value),
+  })
+
+  const group = ref<string[]>([])
 
   const items = [
     {
@@ -33,12 +48,7 @@
     },
   ]
 
-  const drawer = ref(false)
-  const group = ref(null)
-
   watch(group, () => {
     drawer.value = false
   })
-
 </script>
-

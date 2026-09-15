@@ -1,18 +1,19 @@
 <template>
-<v-app>
-    <Header />
-    <NavigationDrawer />
+ <Header @toggle-drawer="drawer = !drawer" />
+ <NavigationDrawer v-model="drawer"/>
 
     <v-main>
-        <router-view />
+    <router-view />
     </v-main>
-</v-app>
+
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import Header from '@/components/layout/Header.vue'
 import NavigationDrawer from '@/components/layout/NavigationDrawer.vue';
-//import Footer from '@/components/layout/Footer.vue'
+
+const drawer = ref(false)
 </script>
 
  
